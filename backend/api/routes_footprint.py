@@ -1,54 +1,44 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends   # ✅ Must be first before using router
 from sqlalchemy.orm import Session
 
 from backend.core.schemas import LifestyleInput, FootprintResult, FootprintTotals, TrendPoint
 from backend.db.session import get_db
 from backend.db import models
-from backend.db.models import Leaderboard
 from backend.services.calculator import compute_footprint as compute_totals
 from backend.services.scoring import green_score as score_from_total
-from backend.services.forecasting import naive_forecast_series as build_trend
+from backend.services.forecasting import naive_forecast_series as forecast_series
+from backend.db.models import Leaderboard
+import random
 
+# ✅ You must define the router right after import
 router = APIRouter(prefix="/footprint", tags=["Footprint"])
+
 
 @router.post("/compute", response_model=FootprintResult)
 def compute_footprint(payload: LifestyleInput, db: Session = Depends(get_db)):
-    # Convert payload to dict for processing
-    payload_dict = payload.model_dump()
-    
-    # 1️⃣ Calculate emission totals
-    totals = compute_totals(payload_dict)
-
-    # 2️⃣ Calculate Green Score
+    totals = compute_totals(payload.model_dump())
     score = score_from_total(totals["total"])
+    trend = forecast_series(totals["total"])
 
-    # 3️⃣ Generate trend forecast
-    trend = build_trend(totals["total"])
-
-    # 4️⃣ Save full footprint run to database
     run = models.FootprintRun(
         user_id=None,
-        inputs=payload_dict,
+        inputs=payload.model_dump(),
         total_kg=totals["total"],
         energy_kg=totals["energy"],
         travel_kg=totals["travel"],
         food_kg=totals["food"],
-        goods_kg=totals.get("goods", 0),
         score=score
     )
     db.add(run)
+
+    # 🔥 Add leaderboard entry with random anonymous ID
+    anon_id = random.randint(1000, 9999)
+    entry = Leaderboard(user_name=f"Anonymous #{anon_id}", score=score)
+    db.add(entry)
+
     db.commit()
     db.refresh(run)
 
-    # 5️⃣ Save to leaderboard table
-    entry = Leaderboard(
-        user_name="Guest User",
-        score=score
-    )
-    db.add(entry)
-    db.commit()
-
-    # 6️⃣ Return response for frontend
     return FootprintResult(
         inputs=payload,
         totals=FootprintTotals(**totals),

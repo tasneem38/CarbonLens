@@ -14,11 +14,12 @@ from fastapi import APIRouter
 from backend.db.session import SessionLocal
 from backend.db.models import Leaderboard
 
-router = APIRouter()
-
-@router.get("/leaderboard")
-def get_leaderboard():
-    db = SessionLocal()
-    top_scores = db.query(Leaderboard).order_by(Leaderboard.score.desc()).limit(10).all()
-    db.close()
-    return [{"name": u.user_name, "score": u.score} for u in top_scores]
+router = APIRouter(prefix="/leaderboard", tags=["Leaderboard"])
+@router.get("/")
+def get_leaderboard(db: Session = Depends(get_db)):
+    """Return top scores ranked by score descending"""
+    leaderboard = db.query(Leaderboard).order_by(Leaderboard.score.desc()).limit(10).all()
+    return [
+        {"name": entry.user_name, "score": round(entry.score, 2), "created_at": entry.created_at}
+        for entry in leaderboard
+    ]
