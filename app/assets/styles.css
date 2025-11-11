@@ -1,0 +1,168 @@
+/* Full-page background */
+body, html, .main, .block-container, .appview-container {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') center/cover no-repeat fixed !important;
+  background-attachment: fixed !important;
+}
+
+/* Hero container */
+.hero-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 20px;
+}
+
+/* Titles and subtitles */
+.title {
+  font-size: 54px;
+  font-weight: 800;
+  color: #e0f0d9;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #c8d5ca;
+  margin-bottom: 30px;
+}
+
+/* Button Styles */
+.cta-buttons .btn {
+  margin: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+}
+.btn.primary {
+  background: #6de28d;
+  color: #0b1120;
+}
+.btn.secondary { background: #22354a; color: white; }
+.btn.ghost { border: 1px solid #dce3ea; color: white; }
+.btn:hover { transform: translateY(-4px); }
+
+/* Features Section - MAKE SURE IT'S VISIBLE */
+.features-section {
+  text-align: center;
+  margin-top: 0;
+  padding: 100px 20px;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease-out;
+  background: transparent !important;
+  position: relative;
+  z-index: 2;
+  min-height: 500px; /* Ensure space for cards */
+}
+
+.features-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Features section heading */
+.features-section h2 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff; /* Brighter white */
+  margin-bottom: 60px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Features grid layout */
+.features-grid {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Feature cards - INCREASED OPACITY FOR VISIBILITY */
+.feature-card {
+  min-width: 260px;
+  max-width: 260px;
+  background: rgba(255, 255, 255, 0.25) !important; /* More opaque */
+  border: 1px solid rgba(255,255,255,0.4) !important; /* Brighter border */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  color: #ffffff !important; /* Bright white text */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3); /* Add shadow for contrast */
+}
+
+/* Feature cards visible state */
+.features-section.visible .feature-card {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+/* Staggered animation delays */
+.features-section.visible .feature-card:nth-child(1) {
+  transition-delay: 0.15s;
+}
+.features-section.visible .feature-card:nth-child(2) {
+  transition-delay: 0.3s;
+}
+.features-section.visible .feature-card:nth-child(3) {
+  transition-delay: 0.45s;
+}
+.features-section.visible .feature-card:nth-child(4) {
+  transition-delay: 0.6s;
+}
+
+/* Feature card hover effect */
+.feature-card:hover {
+  transform: translateY(-8px) !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 12px 32px rgba(109, 226, 141, 0.5);
+  border: 1px solid rgba(109, 226, 141, 0.6) !important;
+}
+
+/* Feature card icon */
+.feature-card .icon {
+  font-size: 44px;
+  margin-bottom: 12px;
+  color: #6de28d !important; /* Bright green */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Headings inside card */
+.feature-card h4 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #ffffff !important; /* Bright white */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Paragraph inside card */
+.feature-card p {
+  font-size: 14px;
+  color: #e8f5e9 !important; /* Light green-white */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}

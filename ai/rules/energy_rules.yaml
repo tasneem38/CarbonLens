@@ -1,0 +1,16 @@
+rules:
+  - area: "Energy"
+    action: "Set AC from 23°C to 26°C"
+    saved_kg_year: 82
+    difficulty: 1
+    confidence: 90
+  - area: "Energy"
+    action: "Replace 5 CFLs with LEDs"
+    saved_kg_year: 180
+    difficulty: 1
+    confidence: 95
+  - area: "Energy"
+    action: "Dry clothes on line instead of dryer (2x/week)"
+    saved_kg_year: 70
+    difficulty: 2
+    confidence: 80

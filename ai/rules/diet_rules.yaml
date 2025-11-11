@@ -1,0 +1,11 @@
+rules:
+  - area: "Food"
+    action: "Replace 2 red-meat meals/week with plant-based"
+    saved_kg_year: 210
+    difficulty: 2
+    confidence: 85
+  - area: "Food"
+    action: "Reduce dairy by 25%"
+    saved_kg_year: 95
+    difficulty: 2
+    confidence: 75

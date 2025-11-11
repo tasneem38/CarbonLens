@@ -1,0 +1,11 @@
+rules:
+  - area: "Travel"
+    action: "Shift 50% car commute to bus/metro"
+    saved_kg_year: 380
+    difficulty: 2
+    confidence: 85
+  - area: "Travel"
+    action: "Carpool twice a week"
+    saved_kg_year: 120
+    difficulty: 1
+    confidence: 80

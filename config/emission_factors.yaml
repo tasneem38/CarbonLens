@@ -1,0 +1,12 @@
+country: IN
+updated: 2025-01-01
+factors:
+  electricity_kg_per_kwh: 0.82
+  travel:
+    car_kg_per_km: 0.21
+    bus_kg_per_km: 0.09
+    train_kg_per_km: 0.04
+  food_monthly_kg:
+    veg: 120
+    mixed: 160
+    nonveg: 216

@@ -1,0 +1,8 @@
+feature_flags:
+  demo_mode: true
+  forecasting_enabled: true
+  leaderboard_enabled: true
+ui:
+  show_global_averages: true
+  show_national_averages: true
+  green_score_gauge: true
